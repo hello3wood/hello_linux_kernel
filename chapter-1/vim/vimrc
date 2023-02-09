@@ -1,0 +1,82 @@
+" 非兼容模式
+set nocompatible
+
+" 检测文件类型
+filetype on
+
+" 自动保存文件内容
+set autowrite
+
+" 显示文件名
+set laststatus=2
+
+" 背景颜色
+set background=dark
+
+" 设置自动对齐,即每行的缩进值与上一行相等；
+set autoindent
+
+" 设置制表符(tab键)的宽度
+set tabstop=8
+
+" 显示制表符
+set list listchars=tab:>-
+" 设置软制表符的宽度
+set softtabstop=8
+
+" 自动缩进使用的8个空格
+set shiftwidth=8
+
+" 使用 C/C++ 语言的自动缩进方式
+set cindent
+
+"设置 C/C++ 语言的具体缩进方式
+set cinoptions={0,1s,t0,n-2,p2s,(03s,=.5s,>1s,=1s,:1s
+
+" 设置匹配模式，显示匹配的括号
+set showmatch
+
+" 显示行号
+set number
+
+" 显示行尾空格
+highlight WhitespaceEOL ctermbg=red guibg=red
+match WhitespaceEOL /\s\+$/
+
+" 命令行显示输入的命令
+set showcmd
+
+" 命令行显示vim当前模式
+set showmode
+
+" 输入字符串就显示匹配点
+set incsearch
+set hlsearch
+
+" 添加当前目录下的tag文件
+set tags+=./tags
+
+if has("cscope")
+	" 使支持用 Ctrl+]  和 Ctrl+t 快捷键在代码间切换
+	set cscopetag
+	" 查找符号时，先查找ctag，再查找cscope
+	set csto=1
+	" 添加当前目录的cscope数据库
+	if filereadable("cscope.out")
+		cs add cscope.out
+	elseif $CSCOPE_DB !=""
+		cs add $CSCOPE_DB
+	endif
+
+	set cscopeverbose
+	" 查找C语言符号，即查找函数名、宏、枚举值等出现的地方
+	nmap <C-/>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+	" 查找函数、宏、枚举等定义的位置
+	nmap <C-/>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+	" 查找本函数调用的函数
+	nmap <C-/>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+	" 查找调用本函数的函数
+	nmap <C-/>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+	" 查找指定的字符串
+	nmap <C-/>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+endif

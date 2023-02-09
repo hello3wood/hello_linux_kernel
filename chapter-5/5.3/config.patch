@@ -1,0 +1,24 @@
+diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
+index 0f5a49fc7..ed1281717 100644
+--- a/drivers/misc/Kconfig
++++ b/drivers/misc/Kconfig
+@@ -470,6 +470,7 @@ config HISI_HIKEY_USB
+ 	  switching between the dual-role USB-C port and the USB-A host ports
+ 	  using only one USB controller.
+ 
++source "drivers/misc/buddy_test/Kconfig"
+ source "drivers/misc/c2port/Kconfig"
+ source "drivers/misc/eeprom/Kconfig"
+ source "drivers/misc/cb710/Kconfig"
+diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
+index a086197af..877c4a17d 100644
+--- a/drivers/misc/Makefile
++++ b/drivers/misc/Makefile
+@@ -3,6 +3,7 @@
+ # Makefile for misc devices that really don't fit anywhere else.
+ #
+ 
++obj-$(CONFIG_BUDDY_TEST)	+= buddy_test/
+ obj-$(CONFIG_IBM_ASM)		+= ibmasm/
+ obj-$(CONFIG_IBMVMC)		+= ibmvmc.o
+ obj-$(CONFIG_AD525X_DPOT)	+= ad525x_dpot.o

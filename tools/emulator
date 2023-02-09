@@ -1,0 +1,27 @@
+#!/bin/bash
+
+## (1) Change the relative path of rootfs.ext2
+##     to absolute path.
+##
+##     -hda /Your/path/to/resource/rootfs.ext2
+##
+## (2) Change the relative path of Image to
+##     absolute path.
+##
+##     -kernel /Your/path/to/resource/Image
+##
+##     OR
+##
+##     Change to your own kernel image.
+##
+##     -kernel /Your/linux/dir/arch/arm64/boot/Image
+##
+qemu-system-aarch64 \
+  -machine virt \
+  -cpu cortex-a57 \
+  -nographic -smp 2 \
+  -hda ./resource/rootfs.ext2 \
+  -kernel ./resource/Image \
+  -append "console=ttyAMA0 root=/dev/vda earlyprintk=serial" \
+  -m 2048 \
+  -net user,hostfwd=tcp::10023-:22 -net nic

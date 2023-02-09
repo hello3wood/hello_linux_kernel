@@ -1,0 +1,36 @@
+Build disk image
+================
+
+1. Extract the tarball
+  $ tar xf buildroot-2022.02.6.tar
+  $ cd buildroot-2022.02.6
+
+2. Configure
+  $ make menuconfig
+
+  Setting the following configs:
+
+  Target options
+    Target Architecture - Aarch64 (little endian)
+  Toolchain type
+    External toolchain - Linaro AArch64
+  System Configuration
+    [*] Enable root login with password
+        ( ) Root password = set your password using this option
+    [*] Run a getty (login prompt) after boot  --->
+        TTY port - ttyAMA0
+  Target packages
+    [*] Show packages that are also provided by busybox
+    Networking applications
+        [*] dhcpcd
+        [*] iproute2
+        [*] openssh
+  Filesystem images
+    [*] ext2/3/4 root filesystem
+        ext2/3/4 variant - ext3
+    [*] tar the root filesystem
+
+3. Build the disk
+  $ make -j8
+
+  The disk image locates at output/images/rootfs.ext3

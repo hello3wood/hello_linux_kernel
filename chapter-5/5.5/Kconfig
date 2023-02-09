@@ -1,0 +1,5 @@
+config SLUB_TEST
+tristate "Test slub"
+default m
+help
+   Allocate memory from slub.

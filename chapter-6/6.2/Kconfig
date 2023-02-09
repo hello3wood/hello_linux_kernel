@@ -1,0 +1,5 @@
+config PGTABLE_WALK
+tristate "Kernel page table walk"
+default m
+help
+   Kernel page table walk.

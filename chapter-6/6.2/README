@@ -1,0 +1,41 @@
+This example shows how to page table walk.
+
+How to use it
+===============
+
+1. Link the dir to the drivers/misc
+    $ cd linux-5.15.77/drivers/misc
+    $ ln -s /path/to/this/dir pgtable_walk
+
+2. Add Kconfig & Makefile to build system
+    $ cd linux-5.15.77
+    $ patch -p1 < /path/to/this/dir/config.patch
+    $ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig
+
+    Answer YES to save the config.
+
+3. Build the kernel(Add the example to kernel)
+    $ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j8
+
+4. Run the emulator with the fresh kernel
+    $ emulator
+
+5. Copy module to emulator
+    $ vm_cp /path/to/this/dir/pgtable_walk.ko
+
+6. Install/Uninstall module
+    # cd /home/test
+    # insmod pgtable_walk.ko
+
+    You can see the msg:
+        [   19.643526] ttbr1=0x15400004184f000
+        [   19.643571] swapper_pg_dir=0xffff00000184f000
+        [   19.643637] --------------------------------
+        [   19.643722] PG-LVL0-TABLE[0]: 0x18000000bfff8003
+        [   19.643780] PG-LVL1-TABLE[0]: 0x18000000bfff7003
+        [   19.643830] PG-LVL2-TABLE[0]: 0x18000000bfff6003
+        [   19.643896] PG-LVL3-PTE[0]: 0xffff000000000000 - 0xffff000000000fff RW
+        ...
+        [   19.646091] --------------------------------
+
+    # rmmod pgtable_walk.ko

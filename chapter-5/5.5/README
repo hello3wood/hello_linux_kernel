@@ -1,0 +1,33 @@
+This example shows how to allocate memory from slub.
+
+How to use it
+===============
+
+1. Link the dir to the drivers/misc
+    $ cd linux-5.15.77/drivers/misc
+    $ ln -s /path/to/this/dir slub_test
+
+2. Add Kconfig & Makefile to build system
+    $ cd linux-5.15.77
+    $ patch -p1 < /path/to/this/dir/config.patch
+    $ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig
+
+    Answer YES to save the config.
+
+3. Build the kernel(Add the example to kernel)
+    $ make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- -j8
+
+4. Run the emulator with the fresh kernel
+    $ emulator
+
+5. Copy module to emulator
+    $ vm_cp /path/to/this/dir/slub.ko
+
+6. Install/Uninstall module
+    # cd /home/test
+    # insmod slub.ko
+
+    You can see the msg:
+        [  313.761518] [slub_test_init]: Hello slub!
+
+    # rmmod slub.ko

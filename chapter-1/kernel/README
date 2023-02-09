@@ -1,0 +1,8 @@
+Configure the kernel
+====================
+
+$ make ARCH=arm64 menuconfig
+
+Configure the CONFIG_CMDLINE:
+
+Input: console=ttyAMA0

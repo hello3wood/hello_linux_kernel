@@ -1,0 +1,5 @@
+config BUDDY_TEST
+tristate "Test buddy system"
+default m
+help
+   Allocate pages from buddy system.
